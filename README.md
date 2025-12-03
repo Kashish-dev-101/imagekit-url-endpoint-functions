@@ -2,6 +2,10 @@
 
 Template for creating and testing ImageKit URL Endpoint Functions with unit tests and GitHub Actions CI.
 
+## Requirements
+
+- **Node.js 14.x** - Required for compatibility
+
 ## Quick Start
 
 ```bash
@@ -16,7 +20,12 @@ function handler(url, urlPrefix, context) {
   // Your logic here
   return { url: modifiedUrl }
 }
+
+// Important: Always export using this format
+module.exports.handler = handler;
 ```
+
+**Note:** Always include `module.exports.handler = handler;` at the end of your handler file.
 
 ### Parameters
 
@@ -49,7 +58,20 @@ function handler(url, urlPrefix, context) {
 
 ## Examples
 
-### 1. Simple URL Rewrite
+See the [`examples/`](./examples) folder for ready-to-use handler implementations:
+
+1. **Simple URL Rewrite** - Change version in path (e.g., /v1/ to /v2/)
+2. **Path Parameters** - Extract path parameters and convert to query string
+3. **Hostname Change** - Change domain/hostname
+4. **Keyword Path Rewriting** - Rewrite paths based on keyword mapping
+5. **Query Parameter Transformation** - Transform custom query params
+6. **Access Control** - Block access to private paths and sensitive files
+7. **Error Handling** - Handle errors gracefully with fallback
+8. **Video Thumbnail** - Generate video thumbnails with image extensions
+
+Each example is a complete, working handler file that you can copy directly to `handler.js`. See [`examples/README.md`](./examples/README.md) for details.
+
+### Quick Example
 
 ```javascript
 function handler(url, urlPrefix, context) {
@@ -57,53 +79,9 @@ function handler(url, urlPrefix, context) {
     url: url.replace('/v1/', '/v2/')
   };
 }
+
+module.exports.handler = handler;
 ```
-
-### 2. Extract Path Parameters
-
-```javascript
-function handler(url, urlPrefix, context) {
-  // Convert: /w_100/h_200/image.jpg → /image.jpg?tr=w-100,h-200
-  const parsedUrl = new URL(url);
-  const params = [];
-  
-  parsedUrl.pathname = parsedUrl.pathname.replace(
-    /\/(w|h)_(\d+)/g,
-    (match, key, value) => {
-      params.push(`${key}-${value}`);
-      return '';
-    }
-  );
-  
-  if (params.length > 0) {
-    parsedUrl.search = `?tr=${params.join(',')}`;
-  }
-  
-  return {
-    url: parsedUrl.toString(),
-    signURL: true
-  };
-}
-```
-
-### 3. Block Private Paths
-
-```javascript
-function handler(url, urlPrefix, context) {
-  const parsedUrl = new URL(url);
-  
-  if (parsedUrl.pathname.includes('/private/')) {
-    return {
-      status: 403,
-      body: { error: 'Access denied' }
-    };
-  }
-  
-  return { url };
-}
-```
-
-**See [examples.js](./examples.js) for 12+ more examples** including hostname changes, routing, query transformations, and more.
 
 ## Testing
 
@@ -115,4 +93,4 @@ npm run test:coverage # With coverage
 
 ## CI/CD
 
-GitHub Actions automatically runs tests on push/PR to `main` or `develop` branches. Tests run on Node.js 18.x and 20.x.
+GitHub Actions automatically runs tests on push/PR to `main` or `develop` branches.
