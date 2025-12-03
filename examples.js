@@ -1,11 +1,10 @@
 /**
  * URL Endpoint Function Handler Examples
  * 
- * This file contains example implementatie for common use cases.
+ * This file contains example implementations for common use cases.
  * Copy any example to handler.js and modify as needed.
  * 
- * Note: Only one function named 'handler' can be exported at a time.
- * To use an example, copy the function body to handler.js.
+ * Note: Remember to include the export statement: module.exports.handler = handler;
  */
 
 // ============================================================================
@@ -18,6 +17,8 @@ function handler(url, urlPrefix, context) {
     url: url.replace('/v1/', '/v2/')
   };
 }
+
+module.exports.handler = handler;
 
 // ============================================================================
 // Example: Parameter Extraction from Path
@@ -53,6 +54,8 @@ function handler(url, urlPrefix, context) {
   };
 }
 
+module.exports.handler = handler;
+
 // ============================================================================
 // Example: Hostname Change
 // ============================================================================
@@ -66,6 +69,8 @@ function handler(url, urlPrefix, context) {
     url: parsedUrl.toString()
   };
 }
+
+module.exports.handler = handler;
 
 // ============================================================================
 // Example: Keyword-Based Path Rewriting
@@ -90,6 +95,8 @@ function handler(url, urlPrefix, context) {
     url: parsedUrl.toString()
   };
 }
+
+module.exports.handler = handler;
 
 // ============================================================================
 // Example: Query Parameter Transformation
@@ -127,6 +134,8 @@ function handler(url, urlPrefix, context) {
   };
 }
 
+module.exports.handler = handler;
+
 // ============================================================================
 // Example: Early Response - Access Control
 // ============================================================================
@@ -163,6 +172,8 @@ function handler(url, urlPrefix, context) {
   return { url };
 }
 
+module.exports.handler = handler;
+
 // ============================================================================
 // Example: Error Handling
 // ============================================================================
@@ -183,6 +194,8 @@ function complexTransform(url) {
   // ... transformation code ...
   return parsedUrl.toString();
 }
+
+module.exports.handler = handler;
 
 // ============================================================================
 // Example: Adding Thumbnail Suffix
@@ -208,3 +221,5 @@ function handler(url, urlPrefix, context) {
     url: parsedUrl.toString()
   };
 }
+
+module.exports.handler = handler;

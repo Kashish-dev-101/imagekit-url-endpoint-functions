@@ -2,7 +2,9 @@
 
 Template for creating and testing ImageKit URL Endpoint Functions with unit tests and GitHub Actions CI.
 
-Uses Node 14.
+## Requirements
+
+- **Node.js 14.x** - Required for compatibility
 
 ## Quick Start
 
@@ -18,7 +20,12 @@ function handler(url, urlPrefix, context) {
   // Your logic here
   return { url: modifiedUrl }
 }
+
+// Important: Always export using this format
+module.exports.handler = handler;
 ```
+
+**Note:** Always include `module.exports.handler = handler;` at the end of your handler file.
 
 ### Parameters
 
@@ -59,6 +66,8 @@ function handler(url, urlPrefix, context) {
     url: url.replace('/v1/', '/v2/')
   };
 }
+
+module.exports.handler = handler;
 ```
 
 ### 2. Extract Path Parameters
@@ -86,6 +95,8 @@ function handler(url, urlPrefix, context) {
     signURL: true
   };
 }
+
+module.exports.handler = handler;
 ```
 
 ### 3. Block Private Paths
@@ -103,6 +114,8 @@ function handler(url, urlPrefix, context) {
   
   return { url };
 }
+
+module.exports.handler = handler;
 ```
 
 **See [examples.js](./examples.js) for 12+ more examples** including hostname changes, routing, query transformations, and more.
@@ -117,4 +130,4 @@ npm run test:coverage # With coverage
 
 ## CI/CD
 
-GitHub Actions automatically runs tests on push/PR to `main` or `develop` branches. Tests run on Node.js 14.x.
+GitHub Actions automatically runs tests on push/PR to `main` or `develop` branches.
