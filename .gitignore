@@ -31,3 +31,6 @@ yarn-error.log*
 dist/
 build/
 code-walkthrough.txt
+
+# Claude Code config
+.claude/

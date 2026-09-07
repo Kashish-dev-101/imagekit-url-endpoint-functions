@@ -14,7 +14,7 @@ brew install gh
 gh auth login
 
 # 3. Go into your folder
-cd /Users/ashish/Documents/Docs/AI/imagekit-performance-playbook
+cd /Users/ashish/Documents/Docs/Workspace/Work/Agents/imagekit-performance-playbook
 
 # 4. Initialise git in that folder
 git init
